@@ -7,6 +7,6 @@
 - mac
   ```
   brew install neovim
-  git clone https://github.com/Paperweightt/neovimConfig ~/.config/nvim
+  git clone --depth 1 https://github.com/Paperweightt/neovimConfig ~/.config/nvim
   brew install --cask neovide
   ```
