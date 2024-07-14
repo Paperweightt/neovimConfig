@@ -1,12 +1,12 @@
 - windows
   ```
   winget install Neovim.Neovim
-  gh repo clone Paperweightt/neovimConfig
+  git clone https://github.com/Paperweightt/neovimConfig ~/.config/nvim
   $ scoop install neovide
   ```
 - mac
   ```
   brew install neovim
-  gh repo clone Paperweightt/neovimConfig
+  git clone https://github.com/Paperweightt/neovimConfig ~/.config/nvim
   brew install --cask neovide
   ```
