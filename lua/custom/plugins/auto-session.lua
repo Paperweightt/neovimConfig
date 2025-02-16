@@ -7,6 +7,7 @@ return {
   ---@type AutoSession.Config
   opts = {
     auto_restore_last_session = true,
+    auto_save = true,
   },
   -- require('auto-session').setup {
   --   auto_restore_last_session = true,

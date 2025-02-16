@@ -34,12 +34,14 @@ vim.cmd 'command! CdToBufferDirectory lua CdToBufferDirectory()'
 
 -- remaps
 -- Remap Ctrl+S to save the file
--- vim.api.nvim_set_keymap('n', 'j', 'gj', { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('n', 'k', 'gk', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<C-s>', ':CdToBufferDirectory<CR>:w<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<C-s>', ':CdToBufferDirectory<CR>:w<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
+vim.keymap.set('v', '<C-s>', ':w<CR>', { noremap = true, silent = true })
+vim.keymap.set('i', '<C-s>', function()
+  vim.cmd 'w'
+end, { noremap = true, silent = true })
+
 -- Map a keybind to execute CdToBufferDirectory command
-vim.api.nvim_set_keymap('n', '<leader>cd', ':CdToBufferDirectory<CR>', {
+vim.keymap.set('n', '<leader>cd', ':CdToBufferDirectory<CR>', {
   noremap = true,
   silent = true,
   desc = '[C]d to current [D]irectory',
