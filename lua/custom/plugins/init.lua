@@ -21,6 +21,7 @@ vim.o.shellquote = '"'
 vim.o.shellxquote = ''
 vim.o.shellpipe = '| Out-File -Encoding UTF8 -Append'
 vim.o.shellredir = '| Out-File -Encoding UTF8'
+vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 
 function CdToBufferDirectory()
   local current_buffer_path = vim.fn.expand '%:p:h'
