@@ -1,5 +1,5 @@
 vim.opt.fillchars = { eob = ' ' }
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 12
 vim.opt.cursorline = true
 vim.opt.wrap = true
 
@@ -29,16 +29,55 @@ end
 
 vim.cmd 'command! CdToBufferDirectory lua CdToBufferDirectory()'
 
-vim.cmd 'autocmd VimEnter * normal! ahi'
+-- vim.cmd 'autocmd VimEnter* normal! ahi'
 
 -- remaps
 -- Remap Ctrl+S to save the file
+-- vim.api.nvim_set_keymap('n', 'j', 'gj', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', 'k', 'gk', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-s>', ':CdToBufferDirectory<CR>:w<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<C-s>', ':CdToBufferDirectory<CR>:w<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<C-s>', '<Esc>:CdToBufferDirectory<CR>:w<CR>a', { noremap = true, silent = true })
 -- Map a keybind to execute CdToBufferDirectory command
-vim.api.nvim_set_keymap('n', '<leader>cd', ':CdToBufferDirectory<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>cd', ':CdToBufferDirectory<CR>', {
+  noremap = true,
+  silent = true,
+  desc = '[C]d to current [D]irectory',
+})
 
+vim.keymap.set('v', '<leader>r', function()
+  -- Get the selected text
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'x', false)
+
+  local start_pos = vim.fn.getpos "'<"
+  local end_pos = vim.fn.getpos "'>"
+  local lines = vim.fn.getline(start_pos[2], end_pos[2])
+
+  -- Extract the selected text
+  local selected_text
+  if #lines == 1 then
+    -- Single-line selection
+    selected_text = string.sub(lines[1], start_pos[3], end_pos[3])
+  else
+    -- Multi-line selection
+    lines[1] = string.sub(lines[1], start_pos[3])
+    lines[#lines] = string.sub(lines[#lines], 1, end_pos[3])
+    selected_text = table.concat(lines, '\n')
+  end
+
+  -- Print or process the selected text
+  print(selected_text)
+
+  -- Prompt for replacement text
+  local replacement = vim.fn.input('Replace"' .. selected_text .. '" with? ')
+  if replacement ~= '' then
+    -- Execute the substitution
+    vim.cmd('%s/\\V' .. vim.fn.escape(selected_text, '\\') .. '/' .. vim.fn.escape(replacement, '\\') .. '/g')
+  end
+end, {
+  desc = '[R]eplace visual selection',
+})
+
+--map <leader>s <cmd>exe "%s/\<<cword>\>/".input("Replace by? ")."/g"<cr>
 -- neovide
 if vim.g.neovide then
   vim.g.neovide_transparency = 0.75
@@ -46,4 +85,5 @@ if vim.g.neovide then
   vim.g.neovide_refresh_rate = 144
   vim.g.neovide_scale_factor = 0.8
 end
+
 return {}
