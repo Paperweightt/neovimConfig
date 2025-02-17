@@ -1,3 +1,4 @@
+vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 vim.opt.fillchars = { eob = ' ' }
 vim.opt.scrolloff = 12
 vim.opt.cursorline = true
@@ -21,27 +22,23 @@ vim.o.shellquote = '"'
 vim.o.shellxquote = ''
 vim.o.shellpipe = '| Out-File -Encoding UTF8 -Append'
 vim.o.shellredir = '| Out-File -Encoding UTF8'
-vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 
 function CdToBufferDirectory()
   local current_buffer_path = vim.fn.expand '%:p:h'
   vim.cmd('cd ' .. current_buffer_path)
 end
 
-vim.cmd 'command! CdToBufferDirectory lua CdToBufferDirectory()'
-
 -- vim.cmd 'autocmd VimEnter* normal! ahi'
 
 -- remaps
 -- Remap Ctrl+S to save the file
 vim.keymap.set('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
-vim.keymap.set('v', '<C-s>', ':w<CR>', { noremap = true, silent = true })
 vim.keymap.set('i', '<C-s>', function()
   vim.cmd 'w'
 end, { noremap = true, silent = true })
 
 -- Map a keybind to execute CdToBufferDirectory command
-vim.keymap.set('n', '<leader>cd', ':CdToBufferDirectory<CR>', {
+vim.keymap.set('n', '<leader>cd', CdToBufferDirectory, {
   noremap = true,
   silent = true,
   desc = '[C]d to current [D]irectory',
@@ -80,7 +77,64 @@ end, {
   desc = '[R]eplace visual selection',
 })
 
---map <leader>s <cmd>exe "%s/\<<cword>\>/".input("Replace by? ")."/g"<cr>
+-- Variables to track the terminal
+local term_win_id = nil
+local term_bufnr = nil
+
+local function toggle_floating_terminal()
+  if term_win_id and vim.api.nvim_win_is_valid(term_win_id) then
+    -- Close the terminal if it's open
+    vim.api.nvim_win_close(term_win_id, true)
+    term_win_id = nil
+  else
+    -- Create a new terminal buffer if needed
+    if not term_bufnr or not vim.api.nvim_buf_is_valid(term_bufnr) then
+      term_bufnr = vim.api.nvim_create_buf(false, true)
+    end
+
+    -- Change to the directory of the current file
+    -- local file_dir = vim.fn.expand '%:p:h'
+    -- vim.api.nvim_feedkeys('cd ' .. file_dir .. ' > /dev/null 2>&1\n', 't', false)
+
+    -- Open a floating window
+    term_win_id = vim.api.nvim_open_win(term_bufnr, true, {
+      relative = 'editor',
+      width = math.floor(vim.o.columns * 0.8),
+      height = math.floor(vim.o.lines * 0.8),
+      row = math.floor(vim.o.lines * 0.1),
+      col = math.floor(vim.o.columns * 0.1),
+      style = 'minimal',
+      border = 'rounded',
+    })
+
+    -- Open a terminal in the buffer
+    vim.api.nvim_command 'terminal'
+
+    -- Start in insert mode (for terminal)
+    vim.api.nvim_command 'startinsert'
+  end
+end
+
+-- Map Ctrl-t in normal and terminal modes
+vim.keymap.set('i', '<C-t>', function()
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'n', false)
+  toggle_floating_terminal()
+  vim.api.nvim_feedkeys('a', 'n', false)
+end, { desc = '[T]oggle floating terminal' })
+
+vim.keymap.set('n', '<C-t>', toggle_floating_terminal, { desc = '[T]oggle floating terminal' })
+vim.keymap.set('t', '<C-t>', function()
+  -- Leave terminal insert mode and toggle the terminal
+  vim.api.nvim_command 'stopinsert'
+  toggle_floating_terminal()
+end, { desc = 'Toggle floating terminal from terminal mode' })
+
+vim.keymap.set('t', '<C-o>', function()
+  -- Leave terminal insert mode and toggle the terminal
+  vim.api.nvim_command 'stopinsert'
+  toggle_floating_terminal()
+end, { desc = 'Toggle floating terminal from terminal mode' })
+
 -- neovide
 if vim.g.neovide then
   vim.g.neovide_transparency = 0.75
