@@ -3,6 +3,7 @@ vim.opt.fillchars = { eob = ' ' }
 vim.opt.scrolloff = 12
 vim.opt.cursorline = true
 vim.opt.wrap = true
+vim.opt.relativenumber = true
 
 -- tabbing
 vim.opt.tabstop = 4
