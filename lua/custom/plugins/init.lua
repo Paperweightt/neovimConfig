@@ -1,15 +1,15 @@
-vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
-vim.opt.fillchars = { eob = ' ' }
-vim.opt.scrolloff = 12
-vim.opt.cursorline = true
-vim.opt.wrap = true
-vim.opt.relativenumber = true
+vim.o.sessionoions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoions'
+vim.o.fillchars = { eob = ' ' }
+vim.o.scrolloff = 12
+vim.o.cursorline = true
+vim.o.wrap = true
+vim.o.relativenumber = true
 
 -- tabbing
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
-vim.opt.laststatus = 0
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.expandtab = true
+vim.o.laststatus = 0
 
 -- foldstuff
 vim.o.foldcolumn = '0'
