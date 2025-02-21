@@ -1,5 +1,5 @@
 vim.o.sessionoions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoions'
-vim.o.fillchars = { eob = ' ' }
+-- vim.o.fillchars = { eob = ' ' }
 vim.o.scrolloff = 12
 vim.o.cursorline = true
 vim.o.wrap = true
