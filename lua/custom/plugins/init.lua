@@ -1,4 +1,4 @@
-vim.o.sessionoions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoions'
+-- vim.o.sessionptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoions'
 vim.o.fillchars = 'eob: '
 vim.o.scrolloff = 12
 vim.o.cursorline = true
@@ -142,6 +142,7 @@ if vim.g.neovide then
   vim.g.neovide_cursor_animation_length = 0.02
   vim.g.neovide_refresh_rate = 144
   vim.g.neovide_scale_factor = 0.8
+  vim.o.guifont = 'FiraCode Nerd Font Mono'
 end
 
 return {}

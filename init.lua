@@ -2,10 +2,6 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 vim.g.have_nerd_font = true
 
--- See `:help vim.opt`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
-
 vim.opt.number = true
 vim.opt.mouse = 'a'
 -- vim.opt.relativenumber = true
@@ -22,7 +18,7 @@ vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
 vim.opt.splitright = true
 vim.opt.splitbelow = true
-vim.opt.scrolloff = 10
+vim.opt.scrolloff = 12
 
 -- Sets how neovim will display certain whitespace in the editor.
 --  See `:help 'list'`
@@ -629,7 +625,18 @@ require('lazy').setup({
 
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup {
-        ensure_installed = { 'bash', 'c', 'html', 'lua', 'markdown', 'vim', 'vimdoc' },
+        ensure_installed = {
+          'bash',
+          'c',
+          'html',
+          'lua',
+          'markdown_inline',
+          'markdown',
+          'vim',
+          'vimdoc',
+          'jsdoc',
+          'javascript',
+        },
         -- Autoinstall languages that are not installed
         auto_install = true,
         highlight = { enable = true },
