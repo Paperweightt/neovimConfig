@@ -1,22 +1,22 @@
 -- vim.o.sessionptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoions'
-vim.o.fillchars = 'eob: '
 vim.o.scrolloff = 12
 vim.o.cursorline = true
 vim.o.wrap = true
 vim.o.relativenumber = true
 
+vim.o.swapfile = false
+
 -- tabbing
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
-vim.o.expandtab = true
+vim.opt.expandtab = true -- Use spaces instead of tabs
+vim.opt.shiftwidth = 4 -- Number of spaces for each indentation level
+vim.opt.tabstop = 4 -- Number of spaces per tab
+vim.opt.softtabstop = 4 -- Makes backspace delete like a tab
+
+-- visuals
 vim.o.laststatus = 0
+vim.o.fillchars = 'eob: '
 
--- foldstuff
-vim.o.foldcolumn = '0'
-vim.o.foldlevel = 99
-vim.o.foldlevelstart = 99
-vim.o.foldenable = true
-
+-- terminal
 vim.o.shell = 'powershell'
 vim.o.shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command'
 vim.o.shellquote = '"'

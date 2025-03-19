@@ -95,7 +95,7 @@ return {
     set('n', '<leader>a', mc.alignCursors)
 
     -- Split visual selections by regex.
-    set('x', 'S', mc.splitCursors)
+    -- set('x', 'S', mc.splitCursors) leap is using this
 
     -- Append/insert for each line of visual selections.
     set('x', 'I', mc.insertVisual)
