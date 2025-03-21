@@ -6,6 +6,10 @@ vim.o.relativenumber = true
 
 vim.o.swapfile = false
 
+-- fold
+vim.opt.foldenable = false
+vim.opt.foldmethod = 'manual'
+
 -- tabbing
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.shiftwidth = 4 -- Number of spaces for each indentation level
