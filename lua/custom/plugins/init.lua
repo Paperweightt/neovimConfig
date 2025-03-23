@@ -36,7 +36,10 @@ end
 -- vim.cmd 'autocmd VimEnter* normal! ahi'
 
 -- remaps
--- Remap Ctrl+S to save the file
+--  esc to clear highlights
+vim.api.nvim_set_keymap('n', '<Esc>', ':nohlsearch<Bar>echo<CR>', { noremap = true, silent = true })
+
+-- Ctrl+S to save the file
 vim.keymap.set('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
 vim.keymap.set('i', '<C-s>', function()
   vim.cmd 'w'
@@ -145,8 +148,8 @@ if vim.g.neovide then
   vim.g.neovide_transparency = 0.75
   vim.g.neovide_cursor_animation_length = 0.02
   vim.g.neovide_refresh_rate = 144
-  vim.g.neovide_scale_factor = 0.8
-  vim.o.guifont = 'FiraCode Nerd Font Mono'
+  vim.g.neovide_scale_factor = 1
+  vim.o.guifont = 'FiraCode Nerd Font Mono:h10.1'
 end
 
 return {}
